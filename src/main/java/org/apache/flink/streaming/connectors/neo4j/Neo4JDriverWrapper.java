@@ -2,8 +2,7 @@ package org.apache.flink.streaming.connectors.neo4j;
 
 import java.io.Serializable;
 import java.util.Map;
-
-import org.apache.flink.util.Preconditions;
+import org.neo4j.driver.internal.util.Preconditions;
 import org.neo4j.driver.v1.AuthToken;
 import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Config;
