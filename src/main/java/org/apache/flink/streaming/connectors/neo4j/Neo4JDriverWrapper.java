@@ -39,18 +39,18 @@ public class Neo4JDriverWrapper implements Serializable {
 	 */
 	public static final String URL = "neo4j.url";
 
-	/**
-	 * The session liveness timeout property key.
-	 * No need anymore in version 3.4
-	 */
-//	public static final String SESSION_LIVENESS_TIMEOUT = "neo4j.session.livetimeout";
-
-	/**
-	 * The default session liveness timeout as it's defined by the ConfigBuilder class.
-	 *  * No need anymore in version 3.4
-	 * @see org.neo4j.driver.v1.Config.ConfigBuilder
-	 */
-//	private static final String DEFAULT_SESSION_LIVENESS_TIMEOUT = "40000";
+//	/**
+//	 * The connection timeout property key.
+//	 *
+//	 */
+//	public static final String CONNECTION_TIMEOUT = "neo4j.session.livetimeout";
+//
+//	/**
+//	 * The default session liveness timeout as it's defined by the ConfigBuilder class.
+//	 *  * No need anymore in version 3.4
+//	 * @see org.neo4j.driver.v1.Config.ConfigBuilder
+//	 */
+////	private static final String DEFAULT_SESSION_LIVENESS_TIMEOUT = "40000";
 
 	/**
 	 * The configuration parameters.
@@ -102,6 +102,10 @@ public class Neo4JDriverWrapper implements Serializable {
 
 		Config config = Config.build()
 				.withEncryptionLevel(EncryptionLevel.NONE)
+				.withConnectionTimeout(4000, TimeUnit.MILLISECONDS)
+				.withMaxConnectionLifetime(30,TimeUnit.MINUTES)
+				.withMaxConnectionPoolSize(50)
+				.withMaxTransactionRetryTime(15,TimeUnit.SECONDS)
 //				.withConnectionLivenessCheckTimeout(getLongValue(timeout),TimeUnit.MILLISECONDS)
 				.toConfig();
 		driver = GraphDatabase.driver(url, authToken, config);
@@ -115,9 +119,9 @@ public class Neo4JDriverWrapper implements Serializable {
 	 *            a long number as a string
 	 * @return the long value
 	 */
-	private long getLongValue(final String longValue) {
-		return Long.valueOf(longValue);
-	}
+//	private long getLongValue(final String longValue) {
+//		return Long.valueOf(longValue);
+//	}
 
 	/**
 	 * Establish a session.
