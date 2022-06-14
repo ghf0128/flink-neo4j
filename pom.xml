@@ -47,6 +47,10 @@
 			<organizationUrl>http://www.venetobanca.it/</organizationUrl>
 			<id>albertodelazzari</id>
 		</developer>
+		<developer>
+			<name>Walt Teng</name>
+			<email>online_tw5@hotmail.com</email>
+		</developer>
 	</developers>
 
 	<scm>
