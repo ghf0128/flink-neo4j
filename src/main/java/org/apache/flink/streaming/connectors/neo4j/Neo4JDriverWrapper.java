@@ -2,6 +2,7 @@ package org.apache.flink.streaming.connectors.neo4j;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import org.neo4j.driver.internal.util.Preconditions;
 import org.neo4j.driver.v1.AuthToken;
 import org.neo4j.driver.v1.AuthTokens;
@@ -40,14 +41,16 @@ public class Neo4JDriverWrapper implements Serializable {
 
 	/**
 	 * The session liveness timeout property key.
+	 * No need anymore in version 3.4
 	 */
-	public static final String SESSION_LIVENESS_TIMEOUT = "neo4j.session.livetimeout";
+//	public static final String SESSION_LIVENESS_TIMEOUT = "neo4j.session.livetimeout";
 
 	/**
 	 * The default session liveness timeout as it's defined by the ConfigBuilder class.
+	 *  * No need anymore in version 3.4
 	 * @see org.neo4j.driver.v1.Config.ConfigBuilder
 	 */
-	private static final String DEFAULT_SESSION_LIVENESS_TIMEOUT = "200";
+//	private static final String DEFAULT_SESSION_LIVENESS_TIMEOUT = "40000";
 
 	/**
 	 * The configuration parameters.
@@ -92,13 +95,15 @@ public class Neo4JDriverWrapper implements Serializable {
 		String url = parameters.get(URL);
 		String username = parameters.get(USERNAME_PARAM);
 		String password = parameters.get(PASSWORD_PARAM);
-		String timeout = parameters.getOrDefault(SESSION_LIVENESS_TIMEOUT, DEFAULT_SESSION_LIVENESS_TIMEOUT);
+//		String timeout = parameters.getOrDefault(SESSION_LIVENESS_TIMEOUT, DEFAULT_SESSION_LIVENESS_TIMEOUT);
 
 		AuthToken authToken = AuthTokens.basic(username, password);
 		LOGGER.debug("Basic authentication token with username {}", username);
 
-		Config config = Config.build().withSessionLivenessCheckTimeout(getLongValue(timeout))
-				.withEncryptionLevel(EncryptionLevel.NONE).toConfig();
+		Config config = Config.build()
+				.withEncryptionLevel(EncryptionLevel.NONE)
+//				.withConnectionLivenessCheckTimeout(getLongValue(timeout),TimeUnit.MILLISECONDS)
+				.toConfig();
 		driver = GraphDatabase.driver(url, authToken, config);
 		LOGGER.debug("A driver has been created to {}", url);
 	}

@@ -13,10 +13,10 @@ import org.junit.Test;
 
 public class Neo4JSinkTest extends Neo4JBaseEmbeddedConfig {
 
-	private static final ArrayList<Tuple2<String, Integer>> collection = new ArrayList<>(20);
+	private static final ArrayList<Tuple2<String, Integer>> collection = new ArrayList<>(10);
 
 	static {
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 10; i++) {
 			collection.add(new Tuple2<>("neo4j-" + i, i));
 		}
 	}
