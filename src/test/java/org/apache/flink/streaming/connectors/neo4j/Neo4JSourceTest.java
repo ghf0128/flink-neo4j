@@ -1,7 +1,6 @@
 package org.apache.flink.streaming.connectors.neo4j;
 
 import java.util.List;
-
 import org.apache.flink.api.common.typeinfo.BasicTypeInfo;
 import org.apache.flink.api.java.io.LocalCollectionOutputFormat;
 import org.apache.flink.embedded.neo4j.Neo4JBaseEmbeddedConfig;
@@ -28,7 +27,8 @@ public class Neo4JSourceTest extends Neo4JBaseEmbeddedConfig {
 				statement, serializationMapper);
 
 		Neo4JSourceMock<String> sourceMock = new Neo4JSourceMock<String>(mappingStrategy, neo4JConfig);
-		DataStreamSource<String> dataStreamSource = env.addSource(sourceMock, BasicTypeInfo.STRING_TYPE_INFO);
+		DataStreamSource<String> dataStreamSource = env
+				.addSource(sourceMock, BasicTypeInfo.STRING_TYPE_INFO);
 
 		List<String> descriptions = Lists.newArrayList();
 		dataStreamSource.writeUsingOutputFormat(new LocalCollectionOutputFormat<>(descriptions));
@@ -36,6 +36,6 @@ public class Neo4JSourceTest extends Neo4JBaseEmbeddedConfig {
 		env.execute();
 
 		Assert.assertTrue(descriptions.size() == 1);
-		Assert.assertTrue(descriptions.get(0).equals("an item"));
+		Assert.assertTrue(descriptions.get(0).equals("walt"));
 	}
 }

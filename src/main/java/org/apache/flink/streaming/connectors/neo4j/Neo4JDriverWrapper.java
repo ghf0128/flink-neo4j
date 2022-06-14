@@ -7,7 +7,6 @@ import org.neo4j.driver.internal.util.Preconditions;
 import org.neo4j.driver.v1.AuthToken;
 import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Config;
-import org.neo4j.driver.v1.Config.EncryptionLevel;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
 import org.neo4j.driver.v1.Session;
@@ -101,7 +100,7 @@ public class Neo4JDriverWrapper implements Serializable {
 		LOGGER.debug("Basic authentication token with username {}", username);
 
 		Config config = Config.build()
-				.withEncryptionLevel(EncryptionLevel.NONE)
+				.withEncryption()
 				.withConnectionTimeout(4000, TimeUnit.MILLISECONDS)
 				.withMaxConnectionLifetime(30,TimeUnit.MINUTES)
 				.withMaxConnectionPoolSize(50)
